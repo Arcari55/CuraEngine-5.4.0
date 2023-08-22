@@ -991,11 +991,10 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
 
     ExtrusionJunction p0 = wall[start_idx];
 
-    
-    std::vector<Point> actual_path;   
-    std::vector<coord_t> actual_path_w;
-    actual_path.push_back(p0.p); //Add first point
-    actual_path_w.push_back(p0.w); //Add first point
+    coord_t seam_dist_traveled = 0.0;
+    coord_t seam_length = wall_0_wipe_dist;
+    float seam_flow = 0.75;
+    std::vector<Point> seam_list;
 
     const int direction = is_reversed ? -1 : 1;
     const size_t max_index = is_closed ? wall.size() + 1 : wall.size();
@@ -1057,86 +1056,33 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
             }
             else
             {
-                Point origin = p0.p + normal(line_vector, piece_length * piece);              
-                actual_path.push_back(destination);
-                actual_path_w.push_back(line_width);
+                Point origin = p0.p + normal(line_vector, piece_length * piece);
+                if (seam_dist_traveled < seam_length)   // haven't finished the seam yet
+                {
+                    if ((seam_length - seam_dist_traveled - vSize(destination - origin)) > 0.0) // look forward and see if the destination is within the seam
+                    {
+                        seam_flow = 1.0;  // Set seam flow to 50%
+                        seam_dist_traveled = seam_dist_traveled + vSize(destination - origin);  // Update distance traveled
+                        seam_list.push_back(destination);
+                    }
+                    else       // Need to find a new destination point along the path to end the reduced seam flow
+                    {
+                        Point seam_end = p0.p + normal(line_vector, seam_length - seam_dist_traveled);
+                        addWallLine(origin, seam_end, settings, non_bridge_config, bridge_config, flow_ratio* seam_flow, line_width* nominal_line_width_multiplier, non_bridge_line_volume, speed_factor, distance_to_bridge_start);
+                        seam_dist_traveled = seam_length + 1;  // Update final distance traveled
+                        origin = seam_end;
+                        seam_list.push_back(seam_end);
+                        seam_flow = 1.0;
+                    }
+
+                }
+                else { seam_flow = 1.0; }
+                addWallLine(origin, destination, settings, non_bridge_config, bridge_config, flow_ratio* seam_flow, line_width * nominal_line_width_multiplier, non_bridge_line_volume, speed_factor, distance_to_bridge_start);
             }
         }
 
         p0 = p1;
     }
-
-    int i1 = 0;
-    float total_dist, seg_dist, full_loop_dist = 0;
-    Point start_s;
-    if (wall_0_wipe_dist > 0)
-    {
-        for (int ix = 0; ix < actual_path.size() - 2; ix++) { full_loop_dist += vSize(actual_path[ix + 1] - actual_path[ix]); }
-        wall_0_wipe_dist = std::min(wall_0_wipe_dist, (coord_t)full_loop_dist);
-        //Reduced flow at Start of Line
-       /*
-            i1 = 0;
-            total_dist = 0.0;
-            seg_dist = vSize(actual_path[i1 + 1] - actual_path[i1]);
-            int size_path = actual_path.size();
-            float start_dist = 200.0;
-
-            while ((total_dist + seg_dist < start_dist) && (i1 < size_path - 1))
-            {
-                i1++;
-                total_dist = total_dist + seg_dist;
-                seg_dist = vSize(actual_path[i1 + 1] - actual_path[i1]);
-
-            }
-
-            start_s = actual_path[i1] + normal(actual_path[i1 + 1] - actual_path[i1], start_dist - total_dist);
-            actual_path.insert(actual_path.begin() + i1 + 1, start_s);
-            actual_path_w.insert(actual_path_w.begin() + i1 + 1, actual_path_w[i1 + 1]);
-
-            for (int i = i1+1; i >= 0; i--) { actual_path_w[i] = actual_path_w[i] * 0.80f; }
-        */
-        // Reduced Flow at end
-        for (int k = 3; k > 0; k--)
-        {
-
-            total_dist = 0.0;
-            i1 = actual_path.size() - 1;
-            seg_dist = vSize(actual_path[i1] - actual_path[i1 - 1]);
-
-            while ((total_dist + seg_dist < (wall_0_wipe_dist * k / 3)) && (i1 > 0))
-            {
-                i1--;
-                total_dist = total_dist + seg_dist;
-                seg_dist = vSize(actual_path[i1] - actual_path[i1 - 1]);
-            }
-
-            start_s = actual_path[i1] + normal(actual_path[i1 - 1] - actual_path[i1], (wall_0_wipe_dist * k/3) - total_dist);
-            actual_path.insert(actual_path.begin() + i1, start_s);
-            actual_path_w.insert(actual_path_w.begin() + i1, actual_path_w[i1]);
-
-            for (int i = i1 + 1; i < actual_path_w.size(); i++) { actual_path_w[i] = actual_path_w[i] *0.68f; }
-
-        }
-       
-    }
-    /*
-    // Stop early
-    
-    //if (true) {    wall_0_wipe_dist == 0
-
-        i1 = actual_path.size() - 1;
-        start_s = actual_path[i1] + normal((actual_path[i1 - 1] - actual_path[i1]), wall[wall.size()-1] .w* 0.68f); // stop 45% of width early
-        actual_path[i1] = start_s;
-    */
-
-    //  Add all calculated extrusion moves...
-    for (int i = 0; i < actual_path.size()-1; i++)
-    {
-        addWallLine(actual_path[i], actual_path[i+1], settings, non_bridge_config, bridge_config, flow_ratio, actual_path_w[i + 1]* nominal_line_width_multiplier, non_bridge_line_volume, speed_factor, distance_to_bridge_start);
-
-    }
-    //addTravel_simple(actual_path[0]); add if using reduced wall extrusion
-
 
     if (wall.size() >= 2)
     {
@@ -1147,14 +1093,9 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
 
         if (wall_0_wipe_dist > 0 && ! is_linked_path)
         { // apply outer wall wipe
-            /*
             constexpr bool spiralize = false;
             const coord_t line_width = p0.w;
-
-            addTravel_simple(actual_path[0]);
-            //addTravel_simple(actual_path[0]+normal(actual_path[1]-actual_path[0],150.0f));
-
-            /*
+            
             ExtrusionJunction pS = wall[start_idx];
             
             for (int i = 0; i < seam_list.size(); i++)
@@ -1192,8 +1133,7 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
             addTravel_simple(full_way);
 
             */
-            //forceNewPathStart();
-            
+            forceNewPathStart();
         }
     }
     else

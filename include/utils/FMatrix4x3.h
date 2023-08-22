@@ -1,16 +1,15 @@
-// Copyright (c) 2020 Ultimaker B.V.
-// CuraEngine is released under the terms of the AGPLv3 or higher.
+//Copyright (c) 2020 Ultimaker B.V.
+//CuraEngine is released under the terms of the AGPLv3 or higher.
 
 #ifndef FMATRIX4X3_H
 #define FMATRIX4X3_H
-
-#include "settings/types/Ratio.h"
 
 namespace cura
 {
 
 class FPoint3;
 class Point3;
+class Ratio;
 
 /*!
  * A 4x3 affine transformation matrix.
@@ -33,7 +32,7 @@ public:
 
     /*!
      * The matrix data, row-endian.
-     *
+     * 
      * The first index is the column. The second index is the row.
      */
     double m[4][3];
@@ -61,5 +60,5 @@ public:
     Point3 apply(const Point3& p) const;
 };
 
-} // namespace cura
-#endif // FMATRIX4X3_H
+} //namespace cura
+#endif //FMATRIX4X3_H

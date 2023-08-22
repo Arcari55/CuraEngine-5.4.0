@@ -1,10 +1,8 @@
-// Copyright (c) 2018 Ultimaker B.V.
-// CuraEngine is released under the terms of the AGPLv3 or higher.
+//Copyright (c) 2018 Ultimaker B.V.
+//CuraEngine is released under the terms of the AGPLv3 or higher.
 
 #ifndef MOLD_H
 #define MOLD_H
-
-#include <vector>
 
 namespace cura
 {
@@ -35,10 +33,9 @@ public:
      * offset from the mold angle).
      */
     static void process(std::vector<Slicer*>& slicer_list);
-
 private:
 };
 
-} // namespace cura
+}//namespace cura
 
-#endif // MOLD_H
+#endif//MOLD_H

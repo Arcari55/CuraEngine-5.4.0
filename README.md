@@ -1,22 +1,4 @@
 
-<br>
-
-<div align = center>
-
-[![Badge Issues]][Issues]   
-[![Badge PullRequests]][PullRequests]   
-[![Badge Closed]][Closed]
-
-[![Badge Size]][#]   
-[![Badge License]][License]   
-[![Badge Contributors]][Contributors]
-
-[![Badge Test]][Test]   
-[![Badge Conan]][Conan]   
-
-<br>
-<br>
-
 <img
     src = 'CuraEngine.ico'
     width = 200
@@ -79,6 +61,4 @@ applications and integrate it into your own app.
 
 <!---------------------------------[ Buttons ]--------------------------------->
 
-[Button Internals]: https://img.shields.io/badge/Internals-00979D?style=for-the-badge&logoColor=white&logo=CodeReview
-[Button Install]: https://img.shields.io/badge/Installation-e23345?style=for-the-badge&logoColor=white&logo=DocuSign
 
