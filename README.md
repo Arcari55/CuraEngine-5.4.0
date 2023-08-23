@@ -12,24 +12,24 @@
 <br>
 <br>
 
-This version of CuraEngine has 2 modifications:
+This is a modified version of CuraEngine that is compatible with Cura 5.4.0 and has been compiled for Windows 10 x64.  
 
-1.  Addresses a bug in Cura 5.x+ where inner and outer walls are no longer printed consecutively.  This version groups all adjacent walls together reducing unnecessary travels and other artifacts.
+This version has 2 modifications:
+
+1.  Addresses a bug in Cura 5.x+ where inner and outer walls are no longer printed consecutively.  This version groups all adjacent walls together reducing unnecessary travels, retractions and other artifacts.
 2.  Changes the Outer Wall wipe behavior.  This version will taper off the flow as you approach the end of an extrusion path.  The Outer wall wipe distance parameter will dictate how far from the end of the extrusion to start tapering flow. 
 
+<img
+    src = 'OuterWallWipe.png'
+    width = 1000
+/>
 <br>
 <br>
 
 
-Designed as a better and faster alternative to the old <br>
-**Skeinforge Engine** and is an integral part of **[Cura]**.
+This is an experimental branch of CuraEngine with modified behavior, for the original version please visit the following repository: **[CuraEngine]**.
 
-You can use CuraEngine separately, in other <br>
-applications and integrate it into your own app.
-
-<br>
-
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Ultimaker/CuraEngine/badge)](https://api.securityscorecards.dev/projects/github.com/Ultimaker/CuraEngine)
+You can use CuraEngine separately, in other applications and integrate it into your own app.
 
 <br>
 
@@ -43,7 +43,7 @@ applications and integrate it into your own app.
 [Issues]: https://github.com/Ultimaker/CuraEngine/issues
 [Conan]: https://github.com/Ultimaker/CuraEngine/actions/workflows/conan-package.yml
 [Test]: https://github.com/Ultimaker/CuraEngine/actions/workflows/unit-test.yml
-[Cura]: https://github.com/Ultimaker/Cura
+[CuraEngine]: https://github.com/Ultimaker/CuraEngine
 
 [License]: LICENSE
 [#]: #
