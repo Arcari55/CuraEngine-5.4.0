@@ -9,7 +9,10 @@
 
 *C++ console application for 3D printing GCode generation.*
 
+<br>
+<br>
 
+This version of Cura Engine groups all adjacent walls together, instead of printing inner walls, traveling and then printing all outer walls.
 
 <br>
 <br>
