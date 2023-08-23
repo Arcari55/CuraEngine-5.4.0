@@ -12,7 +12,10 @@
 <br>
 <br>
 
-This version of Cura Engine groups all adjacent walls together, instead of printing inner walls, traveling and then printing all outer walls.
+This version of CuraEngine has 2 modifications:
+
+1.  Addresses a bug in Cura 5.x+ where inner and outer walls are no longer printed consecutively.  This version groups all adjacent walls together reducing unnecessary travels and other artifacts.
+2.  Changes the Outer Wall wipe behavior.  This version will taper off the flow as you approach the end of an extrusion path.  The Outer wall wipe distance parameter will dictate how far from the end of the extrusion to start tapering flow. 
 
 <br>
 <br>
