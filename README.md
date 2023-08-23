@@ -9,11 +9,7 @@
 
 *C++ console application for 3D printing GCode generation.*
 
-<br>
-<br>
 
-[![Button Install]][Install]   
-[![Button Internals]][Internals]
 
 <br>
 <br>
