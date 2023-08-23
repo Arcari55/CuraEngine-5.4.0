@@ -151,7 +151,13 @@
 			"path" : "build/generators/standardprojectsettingsTargets.cmake"
 		},
 		{
+			"path" : "build/generators/standardprojectsettings-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/standardprojectsettings-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/standardprojectsettings-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/standardprojectsettings-Target-release.cmake"
@@ -183,7 +189,13 @@
 			"path" : "build/generators/arcusTargets.cmake"
 		},
 		{
+			"path" : "build/generators/arcus-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/arcus-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/arcus-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/arcus-Target-release.cmake"
@@ -206,7 +218,13 @@
 			"path" : "build/generators/protobufTargets.cmake"
 		},
 		{
+			"path" : "build/generators/protobuf-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/protobuf-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/protobuf-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/protobuf-Target-release.cmake"
@@ -229,7 +247,13 @@
 			"path" : "build/generators/ZLIBTargets.cmake"
 		},
 		{
+			"path" : "build/generators/ZLIB-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/ZLIB-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/ZLIB-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/ZLIB-Target-release.cmake"
@@ -268,7 +292,13 @@
 			"path" : "build/generators/protobufTargets.cmake"
 		},
 		{
+			"path" : "build/generators/protobuf-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/protobuf-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/protobuf-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/protobuf-Target-release.cmake"
@@ -347,7 +377,13 @@
 			"path" : "build/generators/clipperTargets.cmake"
 		},
 		{
+			"path" : "build/generators/clipper-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/clipper-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/clipper-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/clipper-Target-release.cmake"
@@ -370,7 +406,13 @@
 			"path" : "build/generators/RapidJSONTargets.cmake"
 		},
 		{
+			"path" : "build/generators/RapidJSON-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/RapidJSON-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/RapidJSON-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/RapidJSON-Target-release.cmake"
@@ -393,7 +435,13 @@
 			"path" : "build/generators/stbTargets.cmake"
 		},
 		{
+			"path" : "build/generators/stb-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/stb-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/stb-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/stb-Target-release.cmake"
@@ -416,7 +464,13 @@
 			"path" : "build/generators/BoostTargets.cmake"
 		},
 		{
+			"path" : "build/generators/Boost-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/Boost-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/Boost-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/Boost-Target-release.cmake"
@@ -439,7 +493,13 @@
 			"path" : "build/generators/spdlogTargets.cmake"
 		},
 		{
+			"path" : "build/generators/spdlog-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/spdlog-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/spdlog-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/spdlog-Target-release.cmake"
@@ -462,7 +522,13 @@
 			"path" : "build/generators/fmtTargets.cmake"
 		},
 		{
+			"path" : "build/generators/fmt-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/fmt-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/fmt-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/fmt-Target-release.cmake"
@@ -485,7 +551,13 @@
 			"path" : "build/generators/fmtTargets.cmake"
 		},
 		{
+			"path" : "build/generators/fmt-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/fmt-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/fmt-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/fmt-Target-release.cmake"
@@ -508,7 +580,13 @@
 			"path" : "build/generators/range-v3Targets.cmake"
 		},
 		{
+			"path" : "build/generators/range-v3-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/range-v3-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/range-v3-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/range-v3-Target-release.cmake"
@@ -531,7 +609,13 @@
 			"path" : "build/generators/scriptaTargets.cmake"
 		},
 		{
+			"path" : "build/generators/scripta-debug-x86_64-data.cmake"
+		},
+		{
 			"path" : "build/generators/scripta-release-x86_64-data.cmake"
+		},
+		{
+			"path" : "build/generators/scripta-Target-debug.cmake"
 		},
 		{
 			"path" : "build/generators/scripta-Target-release.cmake"

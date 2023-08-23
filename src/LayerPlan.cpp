@@ -1130,11 +1130,15 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
     */
 
     //  Add all calculated extrusion moves...
-    for (int i = 0; i < actual_path.size()-1; i++)
+    int pathSize = actual_path.size();
+    for (int i = 0; i < pathSize-1; i++)
     {
-        addWallLine(actual_path[i], actual_path[i+1], settings, non_bridge_config, bridge_config, flow_ratio, actual_path_w[i + 1]* nominal_line_width_multiplier, non_bridge_line_volume, speed_factor, distance_to_bridge_start);
-
+        if (vSize(actual_path[i + 1] - actual_path[i]) > (max_resolution*2.0) || i == pathSize - 2) // Only add if move is greater than 2x the resolution, always leave the last move
+        {
+            addWallLine(actual_path[i], actual_path[i + 1], settings, non_bridge_config, bridge_config, flow_ratio, actual_path_w[i + 1] * nominal_line_width_multiplier, non_bridge_line_volume, speed_factor, distance_to_bridge_start);
+        }
     }
+    
     //addTravel_simple(actual_path[0]); add if using reduced wall extrusion
 
 
