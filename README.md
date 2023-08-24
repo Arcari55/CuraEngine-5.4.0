@@ -13,6 +13,7 @@
 <br>
 
 This is a modified version of CuraEngine that is compatible with Cura 5.4.0 that has been compiled for Windows 10 x64.  
+To use this version in Cura, simply copy CuraEngine.exe located in this repository build/Release and replace the .exe in your current install (usually located in Program Files/Ultimaker Cura 5.4.0/.  In case you want to revert back to the original, its best practice to rename the original to CuraEngine-Original.exe and leave it in the same directory.
 
 This version has 2 modifications:
 
