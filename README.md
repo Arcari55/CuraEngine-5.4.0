@@ -10,23 +10,13 @@
 *C++ console application for 3D printing GCode generation.*
 
 <br>
-<br>
 
-This is a modified version of CuraEngine that is compatible with Cura 5.4.0 that has been compiled for Windows 10 x64.  
+This is a modified version of CuraEngine that is compatible with Cura 5.4.0 and has been compiled for Windows 10 x64.  
 To use this version in Cura, simply copy CuraEngine.exe located in this repository build/Release and replace the .exe in your current install (usually located in Program Files/Ultimaker Cura 5.4.0/.  In case you want to revert back to the original, its best practice to rename the original to CuraEngine-Original.exe and leave it in the same directory.
 
-This version has 2 modifications:
+This version addresses a bug in Cura 5.x+ where inner and outer walls are no longer printed consecutively.  This version groups all adjacent walls together reducing unnecessary travels, retractions and other artifacts.
 
-1.  Addresses a bug in Cura 5.x+ where inner and outer walls are no longer printed consecutively.  This version groups all adjacent walls together reducing unnecessary travels, retractions and other artifacts.
-2.  Changes the Outer Wall wipe behavior.  This version will taper off the flow as you approach the end of an extrusion path reducing the blob that is usually left at the Zseam.  This feature is similar to coasting but keeps some pressure on the nozzle to prevent under-extrusion on the next path.  The Outer wall wipe distance parameter will dictate how far from the end of the extrusion to start tapering flow. 
-
-<img
-    src = 'OuterWallWipe.png'
-    width = 1000
-/>
 <br>
-<br>
-
 
 This is an experimental branch of CuraEngine with modified behavior, for the original version please visit the following repository: **[CuraEngine]**.
 
