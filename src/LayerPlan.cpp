@@ -1069,66 +1069,28 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
     int i1 = 0;
     float total_dist, seg_dist, full_loop_dist = 0;
     Point start_s;
-    if (wall_0_wipe_dist > 0)
+   
+    if (wall_0_wipe_dist > 0) // add exact point at wipe distance along path
     {
         for (int ix = 0; ix < actual_path.size() - 2; ix++) { full_loop_dist += vSize(actual_path[ix + 1] - actual_path[ix]); }
         wall_0_wipe_dist = std::min(wall_0_wipe_dist, (coord_t)full_loop_dist);
-        //Reduced flow at Start of Line
-       /*
-            i1 = 0;
-            total_dist = 0.0;
+            
+            total_dist = 0;
             seg_dist = vSize(actual_path[i1 + 1] - actual_path[i1]);
             int size_path = actual_path.size();
-            float start_dist = 200.0;
 
-            while ((total_dist + seg_dist < start_dist) && (i1 < size_path - 1))
+            while ((total_dist + seg_dist < wall_0_wipe_dist) && (i1 < size_path - 1))
             {
                 i1++;
                 total_dist = total_dist + seg_dist;
                 seg_dist = vSize(actual_path[i1 + 1] - actual_path[i1]);
-
             }
-
-            start_s = actual_path[i1] + normal(actual_path[i1 + 1] - actual_path[i1], start_dist - total_dist);
+            
+            start_s = actual_path[i1] + normal(actual_path[i1 + 1] - actual_path[i1], wall_0_wipe_dist - total_dist);
             actual_path.insert(actual_path.begin() + i1 + 1, start_s);
-            actual_path_w.insert(actual_path_w.begin() + i1 + 1, actual_path_w[i1 + 1]);
-
-            for (int i = i1+1; i >= 0; i--) { actual_path_w[i] = actual_path_w[i] * 0.80f; }
-        */
-        // Reduced Flow at end
-        for (int k = 3; k > 0; k--)
-        {
-
-            total_dist = 0.0;
-            i1 = actual_path.size() - 1;
-            seg_dist = vSize(actual_path[i1] - actual_path[i1 - 1]);
-
-            while ((total_dist + seg_dist < (wall_0_wipe_dist * k / 3)) && (i1 > 0))
-            {
-                i1--;
-                total_dist = total_dist + seg_dist;
-                seg_dist = vSize(actual_path[i1] - actual_path[i1 - 1]);
-            }
-
-            start_s = actual_path[i1] + normal(actual_path[i1 - 1] - actual_path[i1], (wall_0_wipe_dist * k/3) - total_dist);
-            actual_path.insert(actual_path.begin() + i1, start_s);
-            actual_path_w.insert(actual_path_w.begin() + i1, actual_path_w[i1]);
-
-            for (int i = i1 + 1; i < actual_path_w.size(); i++) { actual_path_w[i] = actual_path_w[i] *0.68f; }
-
-        }
-       
+            actual_path_w.insert(actual_path_w.begin() + i1 + 1, actual_path_w[i1 + 1]);            
     }
-    /*
-    // Stop early
-    
-    //if (true) {    wall_0_wipe_dist == 0
-
-        i1 = actual_path.size() - 1;
-        start_s = actual_path[i1] + normal((actual_path[i1 - 1] - actual_path[i1]), wall[wall.size()-1] .w* 0.68f); // stop 45% of width early
-        actual_path[i1] = start_s;
-    */
-
+   
     //  Add all calculated extrusion moves...
     int pathSize = actual_path.size();
     for (int i = 0; i < pathSize-1; i++)
@@ -1139,9 +1101,6 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
         }
     }
     
-    //addTravel_simple(actual_path[0]); add if using reduced wall extrusion
-
-
     if (wall.size() >= 2)
     {
         if (! bridge_wall_mask.empty())
@@ -1151,53 +1110,10 @@ void LayerPlan::addWall(const ExtrusionLine& wall,
 
         if (wall_0_wipe_dist > 0 && ! is_linked_path)
         { // apply outer wall wipe
-            /*
-            constexpr bool spiralize = false;
-            const coord_t line_width = p0.w;
-
-            addTravel_simple(actual_path[0]);
-            //addTravel_simple(actual_path[0]+normal(actual_path[1]-actual_path[0],150.0f));
-
-            /*
-            ExtrusionJunction pS = wall[start_idx];
-            
-            for (int i = 0; i < seam_list.size(); i++)
+            for (int j = 1; j <= i1+1; j++) 
             {
-                addExtrusionMove(seam_list[i], non_bridge_config, SpaceFillType::Polygons, flow_ratio *1.00 , line_width * nominal_line_width_multiplier , spiralize, small_feature_speed_factor);
-                //addTravel_simple(seam_list[i]);
-            }
-            /*
-            
-            if (seam_list.size() > 0)
-            {
-                Point wipe_vector = seam_list[seam_list.size()-1] - pS.p;
-                Point full_way = pS.p + normal(wipe_vector*direction, wall_0_wipe_dist / 4.0);
-                addTravel_simple(full_way);
-            }
-            
-            /*
-            int offset = 1;
-            ExtrusionJunction pS = wall[start_idx];
-            ExtrusionJunction pE = wall[start_idx+offset]; 
-
-            while ((wall_0_wipe_dist/2.0) > abs(vSize(pE.p - pS.p)))
-            {
-                if ((start_idx + offset) > (wall.size() - 2)) { break; }
-                offset++;
-                pE = wall[start_idx + offset];
-                
-            }
-            Point vector = pE.p - pS.p;
-
-            Point half_way = pS.p + normal(vector*direction, wall_0_wipe_dist / 2.0);
-            Point full_way = pS.p + normal(vector*direction, wall_0_wipe_dist);
-
-            addExtrusionMove(half_way, non_bridge_config, SpaceFillType::Polygons, flow_ratio / 2.5, line_width* nominal_line_width_multiplier, spiralize, small_feature_speed_factor);
-            addTravel_simple(full_way);
-
-            */
-            //forceNewPathStart();
-            
+                addTravel_simple(actual_path[j]);
+            }        
         }
     }
     else
